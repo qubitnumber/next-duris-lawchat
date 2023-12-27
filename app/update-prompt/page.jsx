@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 import Form from "@components/Form";
 
-const updatePrompt = async (e) => {
+const UpdatePrompt = async (e) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const promptId = searchParams.get("id");
