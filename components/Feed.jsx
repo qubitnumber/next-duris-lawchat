@@ -1,6 +1,21 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import PromptCard from "./PromptCard";
+
+const PromptCardList = ({ data, handleTagClick }) => {
+  return (
+    <div className='mt-16 prompt_layout'>
+      {data.map((post) => (
+        <PromptCard
+          key={post._id}
+          post={post}
+          handleTagClick={handleTagClick}
+        />
+      ))}
+    </div>
+  );
+};
 
 const Feed = () => {
   const [allPosts, setAllPosts] = useState([]);
@@ -43,6 +58,13 @@ const Feed = () => {
     );
   };
 
+  const handleTagClick = (tagName) => {
+    setSearchText(tagName);
+
+    const searchResult = filterPrompts(tagName);
+    setSearchedResults(searchResult);
+  };
+
   return (
     <section className='feed'>
       <form className='relative w-full flex-center'>
@@ -55,6 +77,16 @@ const Feed = () => {
           className='search_input peer'
         />
       </form>
+
+      {/* All Prompts */}
+      {searchText ? (
+        <PromptCardList
+          data={searchedResults}
+          handleTagClick={handleTagClick}
+        />
+      ) : (
+        <PromptCardList data={allPosts} handleTagClick={handleTagClick} />
+      )}
     </section>
   );
 };
