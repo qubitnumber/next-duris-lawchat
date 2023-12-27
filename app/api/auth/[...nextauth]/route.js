@@ -32,7 +32,7 @@ const handler = NextAuth({
           await LUser.create({
             email: profile.email,
             username: profile.name.replace(" ", "").toLowerCase(),
-            image: profile.image,
+            image: profile.picture,
           });
         }
 
