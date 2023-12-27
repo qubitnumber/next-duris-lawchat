@@ -15,6 +15,6 @@ const LUserSchema = new Schema({
   }
 });
 
-const LUser = model("LUser", LUserSchema);
+const LUser = models.LUser || model("LUser", LUserSchema);
 
 export default LUser;
