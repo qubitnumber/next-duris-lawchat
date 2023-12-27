@@ -1,10 +1,9 @@
 import { Schema, model, models } from 'mongoose';
-import LUser from './user';
 
 const PromptSchema = new Schema({
   creator: {
     type: Schema.Types.ObjectId,
-    ref: LUser,
+    ref: 'LUser',
   },
   prompt: {
     type: String,
