@@ -1,8 +1,5 @@
 "use client";
 
-import axios from "axios";
-import { StatusCodes } from 'http-status-codes';
-
 import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -20,17 +17,17 @@ const CreatePrompt = () => {
     setIsSubmitting(true);
 
     try {
-      const response = await axios({
-        method: "post",
+      const response = await fetch({
+        method: "POST",
         url: '/api/prompt/new',
-        data: {
+        body: JSON.stringify({
           prompt: post.prompt,
           userId: session?.user.id,
           tag: post.tag,
-        },
+        }),
       });
 
-      if (response.status === StatusCodes.CREATED) {
+      if (response.ok) {
         router.push("/");
       }
     } catch (error) {

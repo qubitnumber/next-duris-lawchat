@@ -3,7 +3,6 @@
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import axios from "axios";
 
 import Profile from "@components/Profile";
 
@@ -15,9 +14,10 @@ const MyProfile = () => {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = await axios.get(`/api/users/${session?.user.id}/posts`);
+      const response = await fetch(`/api/users/${session?.user.id}/posts`);
+      const data = await response.json();
 
-      setMyPosts(response.data);
+      setMyPosts(data);
     };
 
     if (session?.user.id) fetchPosts();
@@ -34,7 +34,9 @@ const MyProfile = () => {
 
     if (hasConfirmed) {
       try {
-        await axios.delete(`/api/prompt/${post._id.toString()}`);
+        await fetch(`/api/prompt/${post._id.toString()}`, {
+          method: "DELETE",
+        });
 
         const filteredPosts = myPosts.filter((item) => item._id !== post._id);
 
