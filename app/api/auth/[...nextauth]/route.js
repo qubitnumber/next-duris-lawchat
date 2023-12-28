@@ -1,7 +1,7 @@
 import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 
-import LUser from '@models/user';
+import Person from '@models/person';
 import connectToDB from '@utils/database';
 
 const handler = NextAuth({
@@ -15,7 +15,7 @@ const handler = NextAuth({
   callbacks: {
     async session({ session }) {
       // store the user id from MongoDB to session
-      const sessionUser = await LUser.findOne({ email: session.user.email });
+      const sessionUser = await Person.findOne({ email: session.user.email });
       session.user.id = sessionUser._id.toString();
 
       return session;
@@ -25,11 +25,11 @@ const handler = NextAuth({
         await connectToDB();
 
         // check if user already exists
-        const userExists = await LUser.findOne({ email: profile.email });
+        const userExists = await Person.findOne({ email: profile.email });
 
         // if not, create a new document and save user in MongoDB
         if (!userExists) {
-          await LUser.create({
+          await Person.create({
             email: profile.email,
             username: profile.name.replace(" ", "").toLowerCase(),
             image: profile.picture,
