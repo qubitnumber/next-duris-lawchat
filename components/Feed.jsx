@@ -1,5 +1,7 @@
 "use client";
 
+import axios from "axios";
+
 import { useState, useEffect } from "react";
 import PromptCard from "./PromptCard";
 
@@ -27,10 +29,9 @@ const Feed = () => {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = await fetch("/api/prompt");
-      const data = await response.json();
+      const response = await axios.get("/api/prompt");
   
-      setAllPosts(data);
+      setAllPosts(response.data);
     };
     fetchPosts();
   }, []);

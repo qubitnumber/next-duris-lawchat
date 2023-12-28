@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import axios from "axios";
+import { StatusCodes } from 'http-status-codes';
 
 import Form from "@components/Form";
 
@@ -15,12 +17,11 @@ const UpdatePrompt = async (e) => {
 
   useEffect(() => {
     const getPromptDetails = async () => {
-      const response = await fetch(`/api/prompt/${promptId}`);
-      const data = await response.json();
+      const response = await axios.get(`/api/prompt/${promptId}`);
 
       setPost({
-        prompt: data.prompt,
-        tag: data.tag,
+        prompt: response.data.prompt,
+        tag: response.data.tag,
       });
     };
 
@@ -34,15 +35,12 @@ const UpdatePrompt = async (e) => {
     if (!promptId) return alert("Missing PromptId!");
 
     try {
-      const response = await fetch(`/api/prompt/${promptId}`, {
-        method: "PATCH",
-        body: JSON.stringify({
-          prompt: post.prompt,
-          tag: post.tag,
-        }),
+      const response = await axios.patch(`/api/prompt/${promptId}`, {
+        prompt: post.prompt,
+        tag: post.tag,
       });
 
-      if (response.ok) {
+      if (response.status === StatusCodes.OK) {
         router.push("/");
       }
     } catch (error) {
