@@ -9,7 +9,7 @@ const nextConfig = {
     ],
   },
   experimental: {
-    appDir: true,
+    esmExternals: "loose",
     serverComponentsExternalPackages: ["mongoose"]
   },
   webpack(config) {
