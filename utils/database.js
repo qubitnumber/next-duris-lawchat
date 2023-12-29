@@ -1,8 +1,9 @@
 import mongoose from 'mongoose';
 
-let isConnected = false;
+let isConnected = false; // track the connection
 
 export const connectToDB = async () => {
+  mongoose.set('strictQuery', true);
 
   if(isConnected) {
     console.log('MongoDB is already connected');
@@ -11,11 +12,7 @@ export const connectToDB = async () => {
 
   try {
     await mongoose.connect(process.env.MONGODB_URI, {
-      bufferCommands: false,
-      strict: true,
-      strictQuery: true,
-      selectPopulatedPaths: true,
-      maxPoolSize: 10
+      dbName: "durislaw",
     })
 
     isConnected = true;
