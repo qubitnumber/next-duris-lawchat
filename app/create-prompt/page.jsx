@@ -24,11 +24,10 @@ const CreatePrompt = () => {
           userId: session?.user.id,
           tag: post.tag,
         }),
-        cache: 'no-store',
       });
 
       if (response.ok) {
-        router.push("/");
+        router.push("/profile");
       }
     } catch (error) {
       console.log(error);
