@@ -20,7 +20,7 @@ const Nav = () => {
 
   return (
     <nav className='flex-between w-full mb-16 pt-3'>
-      <Link href='/' className='flex gap-2 flex-center'>
+      <Link prefetch={false} href='/' className='flex gap-2 flex-center'>
         <Image
           src='/assets/images/logo.svg'
           alt='logo'
@@ -35,7 +35,7 @@ const Nav = () => {
       <div className='sm:flex hidden'>
         {session?.user ? (
           <div className='flex gap-3 md:gap-5'>
-          <Link href='/create-prompt' className='black_btn'>
+          <Link prefetch={false} href='/create-prompt' className='black_btn'>
             Create Post
           </Link>
 
@@ -43,7 +43,7 @@ const Nav = () => {
             Sign Out
           </button>
 
-          <Link href='/profile'>
+          <Link prefetch={false} href='/profile'>
             <Image
               src={session?.user.image}
               width={37}
@@ -88,6 +88,7 @@ const Nav = () => {
             {toggleDropdown && (
               <div className='dropdown'>
                 <Link
+                  prefetch={false}
                   href='/profile'
                   className='dropdown_link'
                   onClick={() => setToggleDropdown(false)}
@@ -95,6 +96,7 @@ const Nav = () => {
                   My Profile
                 </Link>
                 <Link
+                  prefetch={false}
                   href='/create-prompt'
                   className='dropdown_link'
                   onClick={() => setToggleDropdown(false)}
